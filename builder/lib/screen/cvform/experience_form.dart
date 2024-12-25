@@ -39,7 +39,7 @@ class _ExperienceFormState extends State<ExperienceForm> {
     DatePicker.showDatePicker(context,
         showTitleActions: true,
         minTime: DateTime(1888, 3, 5),
-        maxTime: DateTime.now(), onChanged: (date) {
+        maxTime: DateTime(2030, 12, 1), onChanged: (date) {
       print('change $date');
     }, onConfirm: (date) {
       if (dates == expStartDate) {
@@ -181,7 +181,7 @@ class _ExperienceFormState extends State<ExperienceForm> {
                   TextButton(
                       onPressed: confirmAdd,
                       child: Text(
-                        isCreating ? 'Add' : 'Eddit',
+                        isCreating ? 'Add' : 'Edit',
                         style: TextStyle(
                             color: Color.fromARGB(255, 99, 44, 209),
                             fontSize: 16),

@@ -10,8 +10,7 @@ class CvStyle {
     required this.image,
   });
 }
-
-class Cvitem {
-  final List<Personaldetail> personalDetails;
-  Cvitem({required this.personalDetails});
-}
+// class Cvitem {
+//   final List<Personaldetail> personalDetails;
+//   Cvitem({required this.personalDetails});
+// }

@@ -16,7 +16,8 @@ class YellowTopRightSmaller extends StatelessWidget {
       child: Row(
         //mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(
+          Container(
+            margin: EdgeInsets.fromLTRB(2, 10, 0, 0),
             height: 300,
             width: 200 * 0.55,
             child: _leftSide(thirdDetail),
@@ -46,7 +47,7 @@ class YellowTopRightSmaller extends StatelessWidget {
       children: [
         // Personal Details
         SizedBox(
-          height: 60, // Adjusted for smaller size
+          height: 60,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -54,14 +55,14 @@ class YellowTopRightSmaller extends StatelessWidget {
                 '${personalDetail.firstName.toUpperCase()} ${personalDetail.lastName.toUpperCase()}',
                 style: const TextStyle(
                     color: Colors.black,
-                    fontSize: 8, // Reduced font size
+                    fontSize: 8,
                     fontWeight: FontWeight.bold),
               ),
               Text(
                 personalDetail.jobPosition.toUpperCase(),
                 style: const TextStyle(
                   color: Colors.grey,
-                  fontSize: 7, // Reduced font size
+                  fontSize: 7,
                 ),
               ),
             ],
@@ -70,23 +71,23 @@ class YellowTopRightSmaller extends StatelessWidget {
         const Divider(color: Colors.amber, thickness: 1),
         const Text(
           'ABOUT ME',
-          style: TextStyle(color: Colors.black, fontSize: 8), // Reduced size
+          style: TextStyle(color: Colors.black, fontSize: 8),
         ),
         SizedBox(
-          height: 50, // Adjusted for smaller size
+          height: 50,
           child: Text(
             personalDetail.description,
-            style: const TextStyle(color: Colors.grey, fontSize: 6), // Smaller
+            style: const TextStyle(color: Colors.grey, fontSize: 6),
           ),
         ),
         const Divider(color: Colors.amber),
 
-        // Experience Section
+        // Experience
         const Text(
           'EXPERIENCE',
-          style: TextStyle(color: Colors.black, fontSize: 8), // Smaller
+          style: TextStyle(color: Colors.black, fontSize: 8),
         ),
-        const SizedBox(height: 4), // Reduced spacing
+        const SizedBox(height: 4),
         Expanded(
           child: ListView.builder(
             itemCount: secondDetail.experience?.length ?? 0,
@@ -101,16 +102,6 @@ class YellowTopRightSmaller extends StatelessWidget {
                       '${experience.expRole} / ${experience.companyName}',
                       style: const TextStyle(
                           color: Colors.black, fontSize: 7), // Smaller
-                    ),
-                    Text(
-                      '${experience.startDate} - ${experience.endDate}',
-                      style: const TextStyle(
-                          color: Colors.black, fontSize: 6), // Smaller
-                    ),
-                    Text(
-                      experience.description,
-                      style: const TextStyle(
-                          color: Colors.grey, fontSize: 6), // Smaller
                     ),
                   ],
                 ),
@@ -131,28 +122,27 @@ class YellowTopRightSmaller extends StatelessWidget {
       children: [
         // Profile Image
         Container(
-          height: 90, // Scaled down
+          height: 90,
           width: double.infinity,
           decoration: const BoxDecoration(color: Colors.amber),
           child: Center(
             child: CircleAvatar(
-              radius: 30, // Reduced size
+              radius: 30,
               backgroundImage: personalDetail.profile.isEmpty
                   ? const AssetImage('assets/forgotProfle.png') as ImageProvider
                   : FileImage(File(personalDetail.profile)),
             ),
           ),
         ),
-        const SizedBox(height: 8), // Reduced spacing
+        const SizedBox(height: 8),
 
-        // Courses Section
         const Text(
           'COURSES',
-          style: TextStyle(color: Colors.black, fontSize: 8), // Reduced size
+          style: TextStyle(color: Colors.black, fontSize: 8),
         ),
-        const SizedBox(height: 4), // Reduced spacing
+        const SizedBox(height: 4),
         SizedBox(
-          height: 50, // Reduced height
+          height: 50,
           child: ListView(
             children: secondDetail.education.map((item) {
               return Column(
@@ -163,7 +153,7 @@ class YellowTopRightSmaller extends StatelessWidget {
                     style: const TextStyle(color: Colors.black, fontSize: 7),
                   ),
                   Text(
-                    '${item.startDateTime} - ${item.endDateTime}',
+                    '${item.startDateTime.year} - ${item.endDateTime.year}',
                     style: const TextStyle(color: Colors.black, fontSize: 6),
                   ),
                   Text(
@@ -177,18 +167,20 @@ class YellowTopRightSmaller extends StatelessWidget {
           ),
         ),
 
-        // Contact Section
+        // Contact
         const Text(
           'CONTACT',
           style: TextStyle(color: Colors.black, fontSize: 8),
         ),
         const SizedBox(height: 4),
-        BuildContactInfo(icon: Icons.phone, info: personalDetail.telephone),
-        BuildContactInfo(icon: Icons.email, info: personalDetail.email),
-        BuildAddressInfo(icon: Icons.home_work, info: personalDetail.address),
+        BuildContactInfoSmaller(
+            icon: Icons.phone, info: personalDetail.telephone),
+        BuildContactInfoSmaller(icon: Icons.email, info: personalDetail.email),
+        BuildAddressInfoSmaller(
+            icon: Icons.home_work, info: personalDetail.address),
 
-        // Skills Section
-        const SizedBox(height: 8), // Reduced spacing
+        // Skills
+        const SizedBox(height: 8),
         const Text(
           'SKILLS',
           style: TextStyle(color: Colors.black, fontSize: 8),

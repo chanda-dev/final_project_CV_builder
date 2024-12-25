@@ -39,33 +39,52 @@ class _CvFormState extends State<CvForm> {
   void onNextForm() {
     bool isvalid = _globalKey.currentState!.validate();
     //experience.add(Experience(companyName: companyName, companyCity: companyCity, startDate: startDate, endDate: endDate, description: description, expRole: expRole))
-    //if (isvalid) {
-    _globalKey.currentState!.save();
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => CvFormSecondPage(
-                  thirdDetail: widget.thirdDetail,
-                  modes: widget.mode,
-                  personalDetail: Personaldetail(
-                    cvStyle: widget.cvStyle,
-                    firstName: _firstName,
-                    lastName: _lastName,
-                    address: Address(
-                        city: _userCity,
-                        country: _userCountry,
-                        district: _userDistrict,
-                        village: _userVillage,
-                        streetNumber: _userStreetNumber,
-                        homeNumber: _userHomeNumber),
-                    telephone: _phoneNumber,
-                    email: _email,
-                    jobPosition: _jobPosition,
-                    description: _jobDescription,
-                    profile: selectedImage?.path ?? "",
-                  ),
-                )));
-    //}
+
+    if (selectedImage == null) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Missing Profile'),
+              content: Text('Please upload your Profile'),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text('Back'))
+              ],
+            );
+          });
+      return;
+    }
+    if (isvalid) {
+      _globalKey.currentState!.save();
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => CvFormSecondPage(
+                    thirdDetail: widget.thirdDetail,
+                    modes: widget.mode,
+                    personalDetail: Personaldetail(
+                      cvStyle: widget.cvStyle,
+                      firstName: _firstName,
+                      lastName: _lastName,
+                      address: Address(
+                          city: _userCity,
+                          country: _userCountry,
+                          district: _userDistrict,
+                          village: _userVillage,
+                          streetNumber: _userStreetNumber,
+                          homeNumber: _userHomeNumber),
+                      telephone: _phoneNumber,
+                      email: _email,
+                      jobPosition: _jobPosition,
+                      description: _jobDescription,
+                      profile: selectedImage?.path ?? "",
+                    ),
+                  )));
+    }
   }
 
   @override

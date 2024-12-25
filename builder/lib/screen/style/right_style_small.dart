@@ -23,7 +23,7 @@ class CompactRightStyle extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Left Section
+          // Left
           Container(
             width: 60,
             color: const Color(0xff333A4C),
@@ -34,7 +34,7 @@ class CompactRightStyle extends StatelessWidget {
                 // Profile Image
                 Center(
                   child: CircleAvatar(
-                    radius: 16, // Smaller radius
+                    radius: 16,
                     backgroundImage: personalDetail.profile.isEmpty
                         ? const AssetImage('assets/forgotProfle.png')
                             as ImageProvider
@@ -46,7 +46,35 @@ class CompactRightStyle extends StatelessWidget {
                 _buildContactInfo(Icons.phone, personalDetail.telephone),
                 _buildContactInfo(Icons.email, personalDetail.email),
                 const SizedBox(height: 4),
-                // Skills (Compact layout display)
+                // Education
+                const Text(
+                  'Education',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                    decoration: TextDecoration.none,
+                  ),
+                ),
+                const Divider(color: Colors.grey),
+                ...thirdDetail.secondDetail.education.map((item) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '${item.degree} degree in ${item.major}',
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 7),
+                      ),
+                      Text(
+                        '${item.college} / ${item.collegeCountry}',
+                        style: const TextStyle(color: Colors.grey, fontSize: 5),
+                      ),
+                      const SizedBox(height: 4),
+                    ],
+                  );
+                }),
+                const SizedBox(height: 4),
+                // Skills
                 const Text(
                   'Skills',
                   style: TextStyle(
@@ -70,7 +98,7 @@ class CompactRightStyle extends StatelessWidget {
               ],
             ),
           ),
-          // Right Section
+          // Right
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(4),
@@ -82,7 +110,7 @@ class CompactRightStyle extends StatelessWidget {
                     '${personalDetail.firstName} ${personalDetail.lastName}',
                     style: const TextStyle(
                       color: Color(0xff333A4C),
-                      fontSize: 10, // Smaller font
+                      fontSize: 10,
                       decoration: TextDecoration.none,
                     ),
                     maxLines: 1,
@@ -92,7 +120,7 @@ class CompactRightStyle extends StatelessWidget {
                     personalDetail.jobPosition,
                     style: const TextStyle(
                       color: Color(0xff333A4C),
-                      fontSize: 8, // Smaller font
+                      fontSize: 8,
                       decoration: TextDecoration.none,
                     ),
                     maxLines: 1,
@@ -104,13 +132,13 @@ class CompactRightStyle extends StatelessWidget {
                     'Experience',
                     style: TextStyle(
                       color: Color(0xff333A4C),
-                      fontSize: 8, // Smaller font
+                      fontSize: 8,
                       decoration: TextDecoration.none,
                     ),
                   ),
                   const Divider(color: Color(0xff333A4C), height: 4),
                   ...thirdDetail.secondDetail.experience!
-                      .take(1)
+                      .take(2)
                       .map((exp) => Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -170,14 +198,14 @@ class CompactRightStyle extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, color: Colors.white, size: 8), // Smaller icon
+          Icon(icon, color: Colors.white, size: 8),
           const SizedBox(width: 2),
           Expanded(
             child: Text(
               info,
               style: const TextStyle(
                 color: Colors.white,
-                fontSize: 7, // Smaller font
+                fontSize: 7,
                 decoration: TextDecoration.none,
               ),
               maxLines: 1,
@@ -195,7 +223,7 @@ class CompactRightStyle extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, color: Colors.white, size: 8), // Smaller icon
+          Icon(icon, color: Colors.white, size: 8),
           const SizedBox(width: 2),
           Expanded(
             child: Wrap(
@@ -204,7 +232,7 @@ class CompactRightStyle extends StatelessWidget {
                   '${info.country} ${info.city} ${info.district} ${info.village} ${info.streetNumber} ${info.homeNumber}',
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 7, // Smaller font
+                    fontSize: 7,
                     decoration: TextDecoration.none,
                   ),
                 ),

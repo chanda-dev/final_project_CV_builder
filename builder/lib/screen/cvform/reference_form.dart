@@ -69,7 +69,7 @@ class _ReferenceFormState extends State<ReferenceForm> {
     return Scaffold(
       backgroundColor: Color(0xff3EB489),
       appBar: AppBar(
-        title: Text(isCreating ? 'Add Skill' : 'Edit Skill'),
+        title: Text(isCreating ? 'Add Reference' : 'Edit Reference'),
       ),
       body: Form(
         key: globalkey,

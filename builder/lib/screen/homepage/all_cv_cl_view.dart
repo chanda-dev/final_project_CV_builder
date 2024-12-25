@@ -1,4 +1,3 @@
-import 'package:builder/model/CL/clitem.dart';
 import 'package:builder/model/CV/cvitem.dart';
 import 'package:builder/model/PersonalDetail/personaldetail.dart';
 import 'package:builder/screen/homepage/cvstyleitem.dart';

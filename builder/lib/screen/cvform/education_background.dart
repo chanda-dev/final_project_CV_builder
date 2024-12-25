@@ -79,7 +79,7 @@ class _EducationBackgroundState extends State<EducationBackground> {
     DatePicker.showDatePicker(context,
         showTitleActions: true,
         minTime: DateTime(1888, 3, 5),
-        maxTime: DateTime.now(), onChanged: (date) {
+        maxTime: DateTime(2030, 12, 1), onChanged: (date) {
       print('change $date');
     }, onConfirm: (date) {
       if (dates == startCollegeDate) {

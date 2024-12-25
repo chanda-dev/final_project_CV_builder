@@ -7,8 +7,6 @@ import 'package:builder/model/PersonalDetail/hobbie.dart';
 import 'package:builder/model/PersonalDetail/language.dart';
 import 'package:builder/model/PersonalDetail/reference.dart';
 import 'package:builder/model/PersonalDetail/skill.dart';
-import 'package:hive/hive.dart';
-//part 'third_detail.g.dart';
 
 class Personaldetail {
   final CvStyle cvStyle;
@@ -42,11 +40,8 @@ class SecondDetail {
 }
 
 class ThirdDetail {
-  @HiveField(0)
   final SecondDetail secondDetail;
-  @HiveField(1)
   final List<Skill> skills;
-  @HiveField(2)
   final List<Reference> references;
 
   ThirdDetail(

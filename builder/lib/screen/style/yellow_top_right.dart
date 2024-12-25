@@ -19,7 +19,8 @@ class YellowTopRight extends StatelessWidget {
         decoration: const BoxDecoration(color: Colors.white),
         child: Row(
           children: [
-            SizedBox(
+            Container(
+              margin: EdgeInsets.only(top: 10),
               height: screenHeight,
               width: screenWidth * 0.55,
               child: _leftSide(thirdDetail, screenHeight),
@@ -117,7 +118,7 @@ class YellowTopRight extends StatelessWidget {
                             const TextStyle(color: Colors.black, fontSize: 9),
                       ),
                       Text(
-                        '${experience.startDate} - ${experience.endDate}',
+                        '${experience.startDate.year} - ${experience.endDate.year}',
                         style:
                             const TextStyle(color: Colors.black, fontSize: 8),
                       ),
@@ -177,7 +178,7 @@ class YellowTopRight extends StatelessWidget {
                     style: const TextStyle(color: Colors.black, fontSize: 9),
                   ),
                   Text(
-                    '${item.startDateTime} - ${item.endDateTime}',
+                    '${item.startDateTime.year} - ${item.endDateTime.year}',
                     style: const TextStyle(color: Colors.black, fontSize: 8),
                   ),
                   Text(

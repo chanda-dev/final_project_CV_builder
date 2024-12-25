@@ -28,7 +28,6 @@ class SaveWork extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // Dynamic image or preview
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: CompleteCvView(
@@ -38,7 +37,7 @@ class SaveWork extends StatelessWidget {
                 const SizedBox(height: 8),
                 // CV Style Name
                 Text(
-                  thirdDetail.secondDetail.personalDetail.cvStyle.name,
+                  '${(thirdDetail.secondDetail.personalDetail.firstName).toUpperCase()},${(thirdDetail.secondDetail.personalDetail.jobPosition).toUpperCase()}',
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
