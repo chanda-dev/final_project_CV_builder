@@ -6,11 +6,13 @@ class SkillDisplay extends StatelessWidget {
       {super.key,
       required this.skills,
       required this.setHeight,
-      required this.onEditSkill});
+      required this.onEditSkill,
+      required this.onDeleteSkill});
   final List<Skill> skills;
 
   final double setHeight;
   final Function(int) onEditSkill;
+  final Function(int) onDeleteSkill;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,30 @@ class SkillDisplay extends StatelessWidget {
                           TextButton.icon(
                               onPressed: () => onEditSkill(index),
                               label: const Row(
-                                children: [Text("Edit"), Icon(Icons.edit)],
+                                children: [
+                                  Text(
+                                    "Edit",
+                                    style: TextStyle(color: Color(0xff009EE2)),
+                                  ),
+                                  Icon(
+                                    Icons.edit,
+                                    color: Color(0xff009EE2),
+                                  )
+                                ],
+                              )),
+                          TextButton.icon(
+                              onPressed: () => onDeleteSkill(index),
+                              label: const Row(
+                                children: [
+                                  Text(
+                                    "Delete",
+                                    style: TextStyle(color: Color(0xff009EE2)),
+                                  ),
+                                  Icon(
+                                    Icons.delete,
+                                    color: Color(0xff009EE2),
+                                  )
+                                ],
                               ))
                         ],
                       ),

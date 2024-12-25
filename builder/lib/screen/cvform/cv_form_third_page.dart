@@ -11,8 +11,11 @@ import 'package:builder/screen/test/design.dart';
 import 'package:flutter/material.dart';
 
 class CvFormThirdPage extends StatefulWidget {
-  const CvFormThirdPage({super.key, required this.secondDetail});
+  const CvFormThirdPage(
+      {super.key, required this.secondDetail, this.modes, this.thirdDetail});
   final SecondDetail secondDetail;
+  final Mode? modes;
+  final ThirdDetail? thirdDetail;
 
   @override
   State<CvFormThirdPage> createState() => _CvFormThirdPageState();
@@ -32,7 +35,23 @@ class _CvFormThirdPageState extends State<CvFormThirdPage> {
                       skills: skills,
                       references: references),
                   mode: Mode.creating,
+                  anotherMode: widget.modes,
+                  index: 0,
                 )));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.thirdDetail != null) {
+      if (widget.modes == Mode.editing) {
+        skills = widget.thirdDetail!.skills;
+        references = widget.thirdDetail!.references;
+      } else {
+        skills = [];
+        references = [];
+      }
+    }
   }
 
   double setSkillHeight() {
@@ -107,8 +126,10 @@ class _CvFormThirdPageState extends State<CvFormThirdPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xff3EB489),
       appBar: AppBar(
         automaticallyImplyLeading: false,
+        backgroundColor: Colors.white,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -187,9 +208,13 @@ class _CvFormThirdPageState extends State<CvFormThirdPage> {
                 child: Container(
                   padding: const EdgeInsets.only(left: 10),
                   child: SkillDisplay(
-                      skills: skills,
-                      setHeight: setSkillHeight(),
-                      onEditSkill: onEditSkill),
+                    skills: skills,
+                    setHeight: setSkillHeight(),
+                    onEditSkill: onEditSkill,
+                    onDeleteSkill: (index) => setState(() {
+                      skills.removeAt(index);
+                    }),
+                  ),
                 ),
               ),
               SingleChildScrollView(
@@ -230,9 +255,13 @@ class _CvFormThirdPageState extends State<CvFormThirdPage> {
                 child: Container(
                   padding: const EdgeInsets.only(left: 10),
                   child: RefrenceDisplay(
-                      references: references,
-                      setHeight: setReferenceHeight(),
-                      onEditReference: onEditReference),
+                    references: references,
+                    setHeight: setReferenceHeight() + 30,
+                    onEditReference: onEditReference,
+                    onDelete: (index) => setState(() {
+                      references.removeAt(index);
+                    }),
+                  ),
                 ),
               ),
               const SizedBox(height: 30),

@@ -6,6 +6,7 @@ import 'package:builder/screen/cvform/cv_form_second_page.dart';
 import 'package:builder/widget/input_field.dart';
 import 'package:builder/widget/text_form_input.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ReferenceForm extends StatefulWidget {
   ReferenceForm({
@@ -66,6 +67,7 @@ class _ReferenceFormState extends State<ReferenceForm> {
   Widget build(BuildContext context) {
     bool isCreating = widget.mode == Mode.creating;
     return Scaffold(
+      backgroundColor: Color(0xff3EB489),
       appBar: AppBar(
         title: Text(isCreating ? 'Add Skill' : 'Edit Skill'),
       ),
@@ -100,22 +102,49 @@ class _ReferenceFormState extends State<ReferenceForm> {
                     email = value!;
                   },
                   inputValue: email),
-              TextFormInput(
-                label: "Phone Number",
-                lenght: 50,
-                validate: onValidate,
-                save: (value) {
+              TextFormField(
+                initialValue: number,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
+                keyboardType: TextInputType.number,
+                maxLength: 14,
+                decoration: InputDecoration(
+                  prefix: const Text('+855: '),
+                  label: const Text('Phone Number'),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0)),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "please input your phone number";
+                  } else if (value.trim().length < 8) {
+                    return "phone number should have 8-10 digit";
+                  }
+                  return null;
+                },
+                onSaved: (value) {
                   number = value!;
                 },
-                inputValue: number,
               ),
               Row(
                 children: [
                   TextButton(
-                      onPressed: onCacelAdd, child: const Text('Cancel')),
+                      onPressed: onCacelAdd,
+                      child: const Text(
+                        'Cancel',
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 99, 44, 209),
+                            fontSize: 16),
+                      )),
                   TextButton(
                       onPressed: onConfirmAdd,
-                      child: Text(isCreating ? 'Add' : 'Edit')),
+                      child: Text(
+                        isCreating ? 'Add' : 'Edit',
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 99, 44, 209),
+                            fontSize: 16),
+                      )),
                 ],
               )
             ],

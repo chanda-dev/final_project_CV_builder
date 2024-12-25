@@ -98,6 +98,7 @@ class _ExperienceFormState extends State<ExperienceForm> {
   Widget build(BuildContext context) {
     bool isCreating = widget.mode == Mode.creating;
     return Scaffold(
+      backgroundColor: Color(0xff3EB489),
       appBar: AppBar(
         title: Text(isCreating ? 'Add Experience' : 'Edit Experience'),
       ),
@@ -169,10 +170,22 @@ class _ExperienceFormState extends State<ExperienceForm> {
                   inputValue: expDescription),
               Row(
                 children: [
-                  TextButton(onPressed: cancelAdd, child: const Text('Cancel')),
+                  TextButton(
+                      onPressed: cancelAdd,
+                      child: const Text(
+                        'Cancel',
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 99, 44, 209),
+                            fontSize: 16),
+                      )),
                   TextButton(
                       onPressed: confirmAdd,
-                      child: Text(isCreating ? 'Add' : 'Eddit')),
+                      child: Text(
+                        isCreating ? 'Add' : 'Eddit',
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 99, 44, 209),
+                            fontSize: 16),
+                      )),
                 ],
               )
             ],

@@ -22,7 +22,7 @@ class EducationBackgroundDisplay extends StatelessWidget {
       return SizedBox(
         height: setHeight(educations.length) + 200,
         child: Center(
-          child: Text('Add some Background',
+          child: Text('Add some Education',
               style: TextStyle(
                 decoration: TextDecoration.none,
                 color: Color(0xff009EE2),
@@ -57,6 +57,7 @@ class EducationBackgroundDisplay extends StatelessWidget {
                         ],
                       ),
                       Text('Degree: ${educations[index].degree}'),
+                      Text('Major: ${educations[index].major}'),
                       Text('College: ${educations[index].college}'),
                       Text('Country: ${educations[index].collegeCountry}'),
                       Text('Description: ${educations[index].description}'),

@@ -14,11 +14,11 @@ import '../../model/PersonalDetail/personaldetail.dart';
 enum Mode { editing, creating, delete, view }
 
 class CvFormSecondPage extends StatefulWidget {
-  const CvFormSecondPage({
-    super.key,
-    required this.personalDetail,
-  });
+  const CvFormSecondPage(
+      {super.key, required this.personalDetail, this.modes, this.thirdDetail});
   final Personaldetail personalDetail;
+  final ThirdDetail? thirdDetail;
+  final Mode? modes;
 
   @override
   State<CvFormSecondPage> createState() => _CvFormSecondPageState();
@@ -36,6 +36,8 @@ class _CvFormSecondPageState extends State<CvFormSecondPage> {
       context,
       MaterialPageRoute(
         builder: (context) => CvFormThirdPage(
+          thirdDetail: widget.thirdDetail,
+          modes: widget.modes,
           secondDetail: SecondDetail(
             education,
             experience,
@@ -44,6 +46,21 @@ class _CvFormSecondPageState extends State<CvFormSecondPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.thirdDetail != null) {
+      final SecondDetail secondDetail = widget.thirdDetail!.secondDetail;
+      if (widget.modes == Mode.editing) {
+        education = secondDetail.education;
+        experience = secondDetail.experience!;
+      } else {
+        education = [];
+        experience = [];
+      }
+    }
   }
 
   void addEducation() async {
@@ -107,6 +124,7 @@ class _CvFormSecondPageState extends State<CvFormSecondPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xff3EB489),
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Row(

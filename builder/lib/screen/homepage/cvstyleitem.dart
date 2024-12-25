@@ -14,7 +14,9 @@ class Cvstyleitem extends StatelessWidget {
           width: 150,
           height: 150,
           padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-          color: Colors.amber,
+          //color: Colors.white,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12), color: Colors.white),
           child: SizedBox(
               width: 100,
               child: TextButton(

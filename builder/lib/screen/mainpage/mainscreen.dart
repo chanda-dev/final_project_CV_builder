@@ -1,7 +1,6 @@
 import 'package:builder/model/CL/clitem.dart';
 import 'package:builder/model/CV/cvitem.dart';
 import 'package:builder/model/PersonalDetail/personaldetail.dart';
-import 'package:builder/screen/clform/cl_form.dart';
 import 'package:builder/screen/cvView/cv_view.dart';
 import 'package:builder/screen/cvform/cv_form.dart';
 import 'package:builder/screen/cvform/cv_form_second_page.dart';
@@ -20,75 +19,26 @@ class Mainscreen extends StatefulWidget {
 class _MainscreenState extends State<Mainscreen> {
   List<CvStyle> cvStyles = [
     CvStyle(
-      image: Image.asset(
-        'assets/rightCyanStyle.jpg',
-        fit: BoxFit.fitWidth,
-      ),
+      image: Image.asset('assets/leftBlueStyle.png', fit: BoxFit.fitWidth),
       name: 'RightStyle',
     ),
     CvStyle(
-      image: Image.asset('assets/leftBlueStyle.jpg', fit: BoxFit.fitWidth),
-      name: 'LefttStyle',
-    ),
-    CvStyle(
-      image: Image.asset('assets/rightCyanStyle.jpg', fit: BoxFit.fitWidth),
-      name: 'RightStyle',
-    ),
-    CvStyle(
-      image: Image.asset('assets/leftBlueStyle.jpg', fit: BoxFit.fitWidth),
-      name: 'LefttStyle',
-    ),
-    CvStyle(
-      image: Image.asset('assets/rightCyanStyle.jpg', fit: BoxFit.fitWidth),
-      name: 'RightStyle',
-    ),
-    CvStyle(
-      image: Image.asset('assets/leftBlueStyle.jpg', fit: BoxFit.fitWidth),
-      name: 'LefttStyle',
-    ),
-    CvStyle(
-      image: Image.asset('assets/rightCyanStyle.jpg', fit: BoxFit.fitWidth),
-      name: 'RightStyle',
-    ),
-    CvStyle(
-      image: Image.asset('assets/leftBlueStyle.jpg', fit: BoxFit.fitWidth),
-      name: 'LefttStyle',
-    ),
-    CvStyle(
-      image: Image.asset('assets/rightCyanStyle.jpg', fit: BoxFit.fitWidth),
-      name: 'RightStyle',
-    ),
-    CvStyle(
-      image: Image.asset('assets/leftBlueStyle.jpg', fit: BoxFit.fitWidth),
-      name: 'LefttStyle',
+      image: Image.asset('assets/yellowTopRight.png', fit: BoxFit.fitWidth),
+      name: 'yellowTopRight',
     ),
   ];
-  List<ClStyle> clStyles = [
-    ClStyle(
-      image: Image.asset('assets/nomal1.jpg'),
-      name: 'nomal1',
-    ),
-    ClStyle(
-      image: Image.asset('assets/nomal.jpg'),
-      name: 'nomal',
-    ),
+  List<String> slide = [
+    'assets/decoration.webp',
+    'assets/justInputTheForm.webp',
   ];
-
-  // final List<Personaldetail> _personalDetail = [];
-  // final List<ThirdDetail> _detail = [];
-
-  // void onCreatedCv(Personaldetail newPersonalDetail) {
-  //   setState(() {
-  //     _personalDetail.add(newPersonalDetail);
-  //   });
-  // }
   void delete(int? index) {
-    print(detail.length);
-    setState(() {
-      detail.removeAt(index!);
-    });
-    print('after');
-    print(detail.length);
+    if (index! >= 0) {
+      setState(() {
+        detail.removeAt(index);
+      });
+    } else {
+      print(index);
+    }
   }
 
   void viewWork(int? index) {
@@ -99,6 +49,7 @@ class _MainscreenState extends State<Mainscreen> {
               builder: (ctx) => CvView(
                     thirdDetail: detail[index!],
                     mode: Mode.view,
+                    index: index,
                   )));
     }
   }
@@ -106,19 +57,20 @@ class _MainscreenState extends State<Mainscreen> {
   void onViewAllCv() {
     Navigator.of(context).push(MaterialPageRoute(
         builder: (ctx) => AllCvClView(
-              clOrCv: ClOrCv.cv,
               cvStyle: cvStyles,
               onCvClick: onCvChooseClick,
+              view: ViewDisplay.cv,
             )));
   }
 
-  void onViewAllCl() {
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (ctx) => AllCvClView(
-              clOrCv: ClOrCv.cl,
-              clStyle: clStyles,
-              onClClick: onClChooseClick,
-            )));
+  void onViewAllWork() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (ctx) => AllCvClView(
+                  view: ViewDisplay.project,
+                  onProjectClick: viewWork,
+                )));
   }
 
   // when click on any style it will display the modal that have comfirmation to choose that CV style or not
@@ -126,57 +78,21 @@ class _MainscreenState extends State<Mainscreen> {
     showDialog(
         context: context,
         builder: (ctx) => Dialog(
+              //backgroundColor: Color(0xff3EB489),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('Do you want to choose this style',
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 16,
-                          decoration: TextDecoration.none)),
-                  SizedBox(
-                    child: cv.image,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      TextButton(
-                          onPressed: onCancel, child: const Text('cancel')),
-                      TextButton(
-                          onPressed: () => onConfirmCv(cv),
-                          child: const Text('Confirm')),
-                    ],
-                  )
-                ],
-              ),
-            ));
-  }
-
-  // the same as onCvChooseClick but work on Cl
-
-  void onClChooseClick(ClStyle cl) {
-    showDialog(
-        context: context,
-        builder: (ctx) => Dialog(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
+              child: Container(
+                color: Color(0xff3EB489),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text('Do you want to choose this style',
                         style: TextStyle(
-                            color: Colors.grey,
+                            color: Colors.white,
                             fontSize: 16,
                             decoration: TextDecoration.none)),
-                    const SizedBox(
-                      height: 10,
-                    ),
                     SizedBox(
-                      child: cl.image,
+                      child: cv.image,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -184,7 +100,7 @@ class _MainscreenState extends State<Mainscreen> {
                         TextButton(
                             onPressed: onCancel, child: const Text('cancel')),
                         TextButton(
-                            onPressed: () => onConfirmCl(cl),
+                            onPressed: () => onConfirmCv(cv),
                             child: const Text('Confirm')),
                       ],
                     )
@@ -209,34 +125,24 @@ class _MainscreenState extends State<Mainscreen> {
                 )));
   }
 
-  void onConfirmCl(ClStyle cl) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => ClForm(
-                  clStyle: cl,
-                )));
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text('Welcome to CV builder',
             style: TextStyle(
                 color: Colors.white, decoration: TextDecoration.none)),
-        backgroundColor: Colors.black,
+        backgroundColor: Color(0xff3EB489),
       ),
       body: Homepagescreen(
         cvStyles: cvStyles,
-        clStyles: clStyles,
         onCvChoose: onCvChooseClick,
-        onClChoose: onClChooseClick,
         viewAllCv: onViewAllCv,
-        viewAllCl: onViewAllCl,
-        thirdDetail: detail,
         onDelete: delete,
         onViewWork: viewWork,
+        viewAllProject: onViewAllWork,
+        slide: slide,
       ),
     );
   }

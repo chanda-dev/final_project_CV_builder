@@ -7,11 +7,13 @@ class RefrenceDisplay extends StatelessWidget {
       {super.key,
       required this.references,
       required this.setHeight,
-      required this.onEditReference});
+      required this.onEditReference,
+      required this.onDelete});
   final List<Reference> references;
 
   final double setHeight;
   final Function(int) onEditReference;
+  final Function(int) onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +46,30 @@ class RefrenceDisplay extends StatelessWidget {
                           TextButton.icon(
                               onPressed: () => onEditReference(index),
                               label: const Row(
-                                children: [Text("Edit"), Icon(Icons.edit)],
+                                children: [
+                                  Text(
+                                    "Edit",
+                                    style: TextStyle(color: Color(0xff009EE2)),
+                                  ),
+                                  Icon(
+                                    Icons.edit,
+                                    color: Color(0xff009EE2),
+                                  )
+                                ],
+                              )),
+                          TextButton.icon(
+                              onPressed: () => onDelete(index),
+                              label: const Row(
+                                children: [
+                                  Text(
+                                    "Delete",
+                                    style: TextStyle(color: Color(0xff009EE2)),
+                                  ),
+                                  Icon(
+                                    Icons.delete,
+                                    color: Color(0xff009EE2),
+                                  )
+                                ],
                               ))
                         ],
                       ),

@@ -39,7 +39,12 @@ dependencies:
   card_swiper: ^3.0.1
   image_picker: ^1.0.5+3
   zoom_widget: ^2.0.0
-
+  pdf: ^3.11.1
+  printing: ^5.12.0
+  carousel_slider: ^5.0.0
+  smooth_page_indicator: ^1.2.0+3
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -50,6 +55,8 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
+  hive_generator: ^2.0.0
+  build_runner: ^2.4.6
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -65,12 +72,15 @@ flutter:
   assets:
     - assets/loginBackgroudAsset/Google-Docs-CV-Template-1-min.jpeg
     - assets/loginBackgroudAsset/loginback.jpg
-    - assets/leftBlueStyle.jpg
+    - assets/leftBlueStyle.png
     - assets/rightCyanStyle.jpg
     - assets/nomal1.jpg
     - assets/nomal.jpg
     - assets/men.jpg
     - assets/forgotProfle.png
+    - assets/yellowTopRight.png
+    - assets/decoration.webp
+    - assets/justInputTheForm.webp
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

@@ -10,13 +10,11 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 
 class CvForm extends StatefulWidget {
-  const CvForm({
-    super.key,
-    required this.cvStyle,
-  });
+  const CvForm({super.key, required this.cvStyle, this.mode, this.thirdDetail});
   final CvStyle cvStyle;
+  final Mode? mode;
+  final ThirdDetail? thirdDetail;
   //final Function(Personaldetail) onCreate;
-
   @override
   State<CvForm> createState() => _CvFormState();
 }
@@ -38,7 +36,6 @@ class _CvFormState extends State<CvForm> {
   File? selectedImage;
 
   List<Address> address = [];
-
   void onNextForm() {
     bool isvalid = _globalKey.currentState!.validate();
     //experience.add(Experience(companyName: companyName, companyCity: companyCity, startDate: startDate, endDate: endDate, description: description, expRole: expRole))
@@ -48,6 +45,8 @@ class _CvFormState extends State<CvForm> {
         context,
         MaterialPageRoute(
             builder: (context) => CvFormSecondPage(
+                  thirdDetail: widget.thirdDetail,
+                  modes: widget.mode,
                   personalDetail: Personaldetail(
                     cvStyle: widget.cvStyle,
                     firstName: _firstName,
@@ -69,9 +68,52 @@ class _CvFormState extends State<CvForm> {
     //}
   }
 
+  @override
+  void initState() {
+    super.initState();
+    if (widget.thirdDetail != null) {
+      final Personaldetail personaldetail =
+          widget.thirdDetail!.secondDetail.personalDetail;
+
+      if (widget.mode == Mode.editing) {
+        _firstName = personaldetail.firstName;
+        _lastName = personaldetail.lastName;
+        _phoneNumber = personaldetail.telephone;
+        _email = personaldetail.email;
+        _jobDescription = personaldetail.description;
+        _jobPosition = personaldetail.jobPosition;
+        _userCity = personaldetail.address.city;
+        _userCountry = personaldetail.address.country;
+        _userDistrict = personaldetail.address.district!;
+        _userVillage = personaldetail.address.village!;
+        _userHomeNumber = personaldetail.address.homeNumber!;
+        _userStreetNumber = personaldetail.address.streetNumber!;
+        selectedImage = File(personaldetail.profile);
+      } else {
+        _firstName = '';
+        _lastName = '';
+        _phoneNumber = '';
+        _email = '';
+        _jobDescription = '';
+        _jobPosition = '';
+        _userCity = '';
+        _userCountry = '';
+        _userDistrict = '';
+        _userVillage = '';
+        _userHomeNumber = '';
+        _userStreetNumber = '';
+      }
+    }
+  }
+
   String? onValidated(String? value, {String? text}) {
-    if (value == null || value.isEmpty || value.trim().length > 50) {
+    if (value == null || value.isEmpty) {
       return 'Please input your $text';
+    }
+    if (text == "Description") {
+      if (value.trim().length < 300) {
+        return 'The desciption need at least 300 word';
+      }
     }
     return null;
   }
@@ -89,6 +131,7 @@ class _CvFormState extends State<CvForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xff3EB489),
       appBar: AppBar(
         title: const Text('Welcome'),
       ),
@@ -100,19 +143,25 @@ class _CvFormState extends State<CvForm> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  height: 150,
+                Container(
+                  color: Colors.grey,
+                  height: 200,
+                  width: 150,
                   child: selectedImage != null
                       ? Image.file(selectedImage!)
-                      : const Text('Please Choose the Image'),
+                      : Center(child: const Text('Choose the Image')),
                 ),
                 ElevatedButton(
                     onPressed: () {
                       _pickImageFromGallery();
                     },
-                    child: const Text('Pick the Image')),
+                    style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.black,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12))),
+                    child: const Text('Upload Image')),
                 const Text(
-                  'Profile',
+                  'PROFILE',
                   style: TextStyle(
                       color: Colors.cyan,
                       fontWeight: FontWeight.w700,
@@ -137,7 +186,7 @@ class _CvFormState extends State<CvForm> {
                 TextFormField(
                   initialValue: _phoneNumber,
                   inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
+                    FilteringTextInputFormatter.digitsOnly,
                   ],
                   keyboardType: TextInputType.number,
                   maxLength: 14,
@@ -168,7 +217,7 @@ class _CvFormState extends State<CvForm> {
                     },
                     inputValue: _email),
                 const Text(
-                  'Adrress',
+                  'ADDRESS',
                   style: TextStyle(
                       color: Colors.cyan,
                       fontWeight: FontWeight.w700,
@@ -225,7 +274,7 @@ class _CvFormState extends State<CvForm> {
                     },
                     inputValue: _userHomeNumber),
                 const Text(
-                  'Apply Position',
+                  'APPLY POSITION',
                   style: TextStyle(
                       color: Colors.cyan,
                       fontWeight: FontWeight.w700,
@@ -239,9 +288,16 @@ class _CvFormState extends State<CvForm> {
                       _jobPosition = value!;
                     },
                     inputValue: _jobPosition),
+                const Text(
+                  'ABOUT YOU',
+                  style: TextStyle(
+                      color: Colors.cyan,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 20),
+                ),
                 TextFormInput(
                     label: 'Description',
-                    lenght: 400,
+                    lenght: 600,
                     validate: (value) =>
                         onValidated(value, text: 'Description'),
                     save: (value) {
@@ -254,7 +310,8 @@ class _CvFormState extends State<CvForm> {
                 ElevatedButton(
                   onPressed: onNextForm,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.purpleAccent,
+                    backgroundColor: Color(0xff246EE9),
+                    foregroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 30,
                       vertical: 15,

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:builder/model/PersonalDetail/address.dart';
 import 'package:builder/model/PersonalDetail/personaldetail.dart';
 import 'package:flutter/material.dart';
+import 'package:builder/widget/for_style.dart';
 
 class RightStyle extends StatelessWidget {
   const RightStyle({
@@ -55,9 +56,11 @@ class RightStyle extends StatelessWidget {
                     ),
                   ),
                   const Divider(color: Colors.grey),
-                  _buildAddressInfo(Icons.home_work, address),
-                  _buildContactInfo(Icons.phone, personalDetail.telephone),
-                  _buildContactInfo(Icons.email, personalDetail.email),
+                  BuildAddressInfo(icon: Icons.home_work, info: address),
+                  BuildContactInfo(
+                      icon: Icons.phone, info: personalDetail.telephone),
+                  BuildContactInfo(
+                      icon: Icons.email, info: personalDetail.email),
                   const SizedBox(height: 20),
                   // Education
                   const Text(
@@ -246,60 +249,6 @@ class RightStyle extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildContactInfo(IconData icon, String info) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(icon, color: Colors.white, size: 16),
-          const SizedBox(width: 5),
-          Expanded(
-            child: Wrap(
-              children: [
-                Text(
-                  info,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                    decoration: TextDecoration.none,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildAddressInfo(IconData icon, Address info) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(icon, color: Colors.white, size: 16),
-          const SizedBox(width: 5),
-          Expanded(
-            child: Wrap(
-              children: [
-                Text(
-                  '${info.country} ${info.city} ${info.district} ${info.village} ${info.streetNumber} ${info.homeNumber}',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                    decoration: TextDecoration.none,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }

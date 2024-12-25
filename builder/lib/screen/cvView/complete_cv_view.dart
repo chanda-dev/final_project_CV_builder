@@ -2,6 +2,7 @@ import 'package:builder/model/CV/cvitem.dart';
 import 'package:builder/screen/cvform/cv_form_second_page.dart';
 import 'package:builder/screen/mainpage/mainscreen.dart';
 import 'package:builder/screen/style/right_style_small.dart';
+import 'package:builder/screen/style/yellow_top_right_smaller.dart';
 import 'package:zoom_widget/zoom_widget.dart';
 import 'package:builder/model/PersonalDetail/personaldetail.dart';
 import 'package:builder/screen/style/right_style.dart';
@@ -25,6 +26,8 @@ class CompleteCvView extends StatelessWidget {
           );
         case 'LeftStyle':
           return const Text('GG');
+        case 'yellowTopRight':
+          return YellowTopRightSmaller(thirdDetail: thirdDetail);
         default:
           return const Text('hh');
       }

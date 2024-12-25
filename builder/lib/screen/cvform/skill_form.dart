@@ -3,6 +3,7 @@ import 'package:builder/screen/cvform/cv_form_second_page.dart';
 import 'package:builder/widget/input_field.dart';
 import 'package:builder/widget/text_form_input.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class SkillForm extends StatefulWidget {
   SkillForm({
@@ -56,6 +57,7 @@ class _SkillFormState extends State<SkillForm> {
   Widget build(BuildContext context) {
     bool isCreating = widget.mode == Mode.creating;
     return Scaffold(
+      backgroundColor: Color(0xff3EB489),
       appBar: AppBar(
         title: Text(isCreating ? 'Add Skill' : 'Edit Skill'),
       ),
@@ -73,23 +75,46 @@ class _SkillFormState extends State<SkillForm> {
                     yourSkill = value!;
                   },
                   inputValue: yourSkill),
-              TextFormInput(
-                label: "Rate",
-                lenght: 3,
-                validate: onValidate,
-                save: (value) {
+              TextFormField(
+                initialValue: rate,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
+                keyboardType: TextInputType.number,
+                maxLength: 14,
+                decoration: InputDecoration(
+                  label: const Text('Rate'),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0)),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "please rate your self";
+                  }
+                  return null;
+                },
+                onSaved: (value) {
                   rate = value!;
                 },
-                inputValue: rate,
-                hint: '0-100',
               ),
               Row(
                 children: [
                   TextButton(
-                      onPressed: onCacelAdd, child: const Text('Cancel')),
+                      onPressed: onCacelAdd,
+                      child: const Text(
+                        'Cancel',
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 99, 44, 209),
+                            fontSize: 16),
+                      )),
                   TextButton(
                       onPressed: onConfirmAdd,
-                      child: Text(isCreating ? 'Add' : 'Edit')),
+                      child: Text(
+                        isCreating ? 'Add' : 'Edit',
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 99, 44, 209),
+                            fontSize: 16),
+                      )),
                 ],
               )
             ],

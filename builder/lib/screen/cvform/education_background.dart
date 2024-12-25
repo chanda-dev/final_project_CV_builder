@@ -99,6 +99,7 @@ class _EducationBackgroundState extends State<EducationBackground> {
     bool? isCreating = widget.mode == Mode.creating;
 
     return Scaffold(
+      backgroundColor: Color(0xff3EB489),
       appBar: AppBar(
         title: Text(isCreating ? 'Add Education' : 'Edit Education'),
       ),
@@ -181,10 +182,21 @@ class _EducationBackgroundState extends State<EducationBackground> {
                 Row(
                   children: [
                     TextButton(
-                        onPressed: onCacelAdd, child: const Text('Cancel')),
+                        onPressed: onCacelAdd,
+                        child: const Text(
+                          'Cancel',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 99, 44, 209),
+                              fontSize: 16),
+                        )),
                     TextButton(
                         onPressed: onConfirmAddEducation,
-                        child: Text(isCreating ? 'Add' : 'Edit')),
+                        child: Text(
+                          isCreating ? 'Add' : 'Edit',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 99, 44, 209),
+                              fontSize: 16),
+                        )),
                   ],
                 )
               ],
