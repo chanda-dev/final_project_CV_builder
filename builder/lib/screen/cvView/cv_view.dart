@@ -35,7 +35,7 @@ class _CvViewState extends State<CvView> {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (ctx) => Mainscreen()),
-        (Route<dynamic> route) => false, // Remove all previous routes
+        (Route<dynamic> route) => false,
       );
     } else {
       print(detail.length);
@@ -52,7 +52,7 @@ class _CvViewState extends State<CvView> {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (ctx) => Mainscreen()),
-        (Route<dynamic> route) => false, // Remove all previous routes
+        (Route<dynamic> route) => false,
       );
     }
   }
